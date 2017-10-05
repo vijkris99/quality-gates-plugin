@@ -22,11 +22,11 @@ public class BuildDecision {
     public Result getStatus(GlobalConfigDataForSonarInstance globalConfigDataForSonarInstance, JobConfigData jobConfigData) throws QGException {
         try {
             QualityGatesStatus qualityGate = qualityGatesProvider.getAPIResultsForQualityGates(jobConfigData, globalConfigDataForSonarInstance);
-            if (qualityGate == QualityGatesStatus.GREEN)
+            if (qualityGate == QualityGatesStatus.GREEN) {
             	return Result.SUCCESS;
-            if (jobConfigData.getIgnoreWarnings() && qualityGate == QualityGatesStatus.ORANGE)
+            } else {
             	return Result.UNSTABLE;
-            return Result.FAILURE;
+            }
         } catch (JSONException e) {
             throw new QGException("Please check your credentials or your Project Key", e);
         }
